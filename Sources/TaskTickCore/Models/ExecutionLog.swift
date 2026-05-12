@@ -56,6 +56,17 @@ public final class ExecutionLog {
     public var durationMs: Int?
     public var triggeredByRaw: String = TriggerType.manual.rawValue
 
+    /// PID of the process group leader (set by setpgid in ScriptExecutor).
+    /// Nil for logs from before this feature shipped, and for runs whose
+    /// process never reached `setpgid` (start failure).
+    public var pid: Int32?
+
+    /// Output of `ps -p <pid> -o lstart=` captured right after spawn.
+    /// Used as a PID-reuse fingerprint on reconcile: if the live PID's
+    /// current lstart differs from this string, the PID has been recycled
+    /// to a different process and we must NOT signal it.
+    public var processStartTime: String?
+
     public init(
         task: ScheduledTask? = nil,
         triggeredBy: TriggerType = .manual
