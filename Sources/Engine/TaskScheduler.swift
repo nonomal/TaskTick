@@ -116,6 +116,57 @@ final class TaskScheduler: ObservableObject {
         }
     }
 
+    // MARK: - Adoption Poll
+
+    /// Polls every 30s to see whether any adopted process has exited.
+    /// When one does, transition the corresponding log from .running to
+    /// .cancelled and clear the runningTaskIDs entry. Cheap — typically
+    /// 0-2 adopted processes; each probe is a single `kill(pid, 0)` syscall.
+    private var adoptionPollTimer: Timer?
+
+    @MainActor
+    func startAdoptionPoll() {
+        adoptionPollTimer?.invalidate()
+        adoptionPollTimer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { [weak self] _ in
+            Task { @MainActor in self?.pollAdoptedProcesses() }
+        }
+    }
+
+    @MainActor
+    func stopAdoptionPoll() {
+        adoptionPollTimer?.invalidate()
+        adoptionPollTimer = nil
+    }
+
+    @MainActor
+    private func pollAdoptedProcesses() {
+        let snapshot = ScriptExecutor.shared.adoptedProcesses
+        guard !snapshot.isEmpty, let ctx = modelContext else { return }
+        let now = Date()
+        for (taskID, pid) in snapshot {
+            if ProcessReconciler.isAlive(pid: pid) { continue }
+            ScriptExecutor.shared.adoptedProcesses.removeValue(forKey: taskID)
+            runningTaskIDs.remove(taskID)
+
+            // Mark the most recent running log for this task as cancelled.
+            let runningRaw = ExecutionStatus.running.rawValue
+            let descriptor = FetchDescriptor<ExecutionLog>(
+                predicate: #Predicate { $0.statusRaw == runningRaw && $0.task?.id == taskID }
+            )
+            if let log = try? ctx.fetch(descriptor).first {
+                log.status = .cancelled
+                log.finishedAt = now
+                if log.durationMs == nil {
+                    log.durationMs = Int(now.timeIntervalSince(log.startedAt) * 1000)
+                }
+                if (log.stderr ?? "").isEmpty {
+                    log.stderr = "[TaskTick] Adopted process \(pid) exited externally."
+                }
+            }
+        }
+        do { try ctx.save() } catch { NSLog("⚠️ TaskScheduler save failed: \(error)") }
+    }
+
     // MARK: - Private
 
     private func timerFired() {

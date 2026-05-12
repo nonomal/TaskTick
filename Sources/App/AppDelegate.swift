@@ -54,6 +54,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             // beneath the search bar.
             QuickLauncherController.shared.prewarmCursorUI()
             cleanupStaleRunningLogs()
+            TaskScheduler.shared.startAdoptionPoll()
         }
 
         // Quick Launcher's ⌘O posts this notification to ask for the main
@@ -104,6 +105,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     static func gracefulShutdown() {
         ScriptExecutor.shared.cancelAll(graceful: 0.2)
         TaskScheduler.shared.stop()
+        TaskScheduler.shared.stopAdoptionPoll()
         do {
             try TaskTickApp._sharedModelContainer.mainContext.save()
         } catch {
