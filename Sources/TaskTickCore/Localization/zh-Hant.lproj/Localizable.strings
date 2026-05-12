@@ -6,6 +6,7 @@
 "menubar.no_tasks" = "暫無任務";
 "menubar.next_run" = "下次執行";
 "menubar.upcoming" = "即將執行";
+"menubar.manual_scripts" = "手動指令稿";
 "menubar.quit" = "結束";
 
 /* Task List */
@@ -29,6 +30,7 @@
 "task.detail.enable" = "啟用";
 "task.detail.disable" = "停用";
 "task.detail.run" = "執行";
+"task.detail.stop" = "停止";
 "task.detail.edit" = "編輯";
 "task.detail.delete" = "刪除";
 "task.detail.schedule" = "排程設定";
@@ -52,7 +54,6 @@
 "editor.tab.basic" = "基本";
 "editor.tab.schedule" = "排程";
 "editor.tab.script" = "腳本";
-"editor.tab.content" = "內容";
 "editor.tab.settings" = "設定";
 "editor.tab.notification" = "通知";
 
@@ -89,7 +90,10 @@
 "editor.working_dir.choose" = "選擇目錄";
 "editor.timeout" = "逾時時間";
 "editor.timeout.seconds" = "秒";
+"editor.timeout.unlimited" = "永不逾時";
+"editor.timeout.hint" = "填 -1（或任意負數）表示永不逾時，指令稿會一直執行直到自然結束或被手動停止。適合 dev server 等需要常駐的處理程序。";
 "editor.ignore_exit_code" = "忽略退出碼";
+"editor.ignore_exit_code.hint" = "啟用後，無論指令稿的退出碼為何，任務都會視為成功。適用於正常完成但會回傳非零退出碼的指令稿。";
 "editor.pre_run.section" = "前置命令";
 "editor.pre_run.enable" = "啟用前置命令";
 "editor.pre_run.placeholder" = "可選：在指令碼之前執行的命令";
@@ -97,6 +101,8 @@
 "editor.section.notification" = "通知";
 "editor.notify_success" = "成功時通知";
 "editor.notify_failure" = "失敗時通知";
+"editor.notify_only_when_output" = "僅在有輸出時通知";
+"editor.notify_only_when_output.hint" = "啟用後，執行成功但指令稿沒有任何 stdout 輸出（例如輪詢空跑）將不彈出通知；只在指令稿透過 `echo` 主動印出業務資訊時才會通知。";
 "editor.notify_hint" = "任務完成時透過 macOS 系統通知推播。";
 "editor.strong_reminder" = "成功時強提醒";
 "editor.strong_reminder_hint" = "任務成功後彈出浮動面板，顯示完整輸出內容。";
@@ -123,6 +129,14 @@
 "schedule.until" = "截止 %@";
 "schedule.after_n_times" = "%d 次";
 "schedule.run_missed" = "補執行錯過的任務";
+"schedule.launch_section" = "啟動";
+"schedule.run_on_launch" = "每次 App 啟動時執行一次";
+"schedule.run_on_launch.help" = "無論是否有排程計畫，每次 App 啟動都會執行";
+"schedule.trigger_section" = "觸發方式";
+"schedule.manual_only" = "僅手動觸發";
+"schedule.manual_only.help" = "不進入排程，僅在右鍵選單或選單列點擊執行時觸發";
+"tasklist.section.scheduled" = "自動排程";
+"tasklist.section.manual" = "手動指令稿";
 
 /* Repeat Types */
 "repeat.never" = "永不";
@@ -183,16 +197,76 @@
 "notification.success" = "執行成功";
 "notification.succeeded" = "成功";
 "notification.failed" = "失敗";
+"notification.denied.title" = "通知權限未開啟";
+"notification.denied.message" = "TaskTick 想傳送任務執行結果的通知，但系統已停用了通知權限。請至系統設定中重新開啟。";
+"notification.denied.open_settings" = "開啟系統設定";
+"notification.denied.later" = "稍後再說";
+
+/* Quick Launcher */
+"quick_launcher.placeholder" = "搜尋任務...";
+"quick_launcher.empty.no_tasks" = "尚無可執行的任務";
+"quick_launcher.empty.no_match" = "沒有相符的任務";
+"quick_launcher.hint.navigate" = "選擇";
+"quick_launcher.hint.run" = "執行";
+"quick_launcher.hint.close" = "關閉";
+"quick_launcher.recording" = "請按下快速鍵…";
+"quick_launcher.menu_item" = "快速啟動";
+"quick_launcher.action.run" = "執行";
+"quick_launcher.action.stop" = "停止";
+"quick_launcher.hint.stop" = "停止";
+"quick_launcher.hint.restart" = "重新啟動";
+"quick_launcher.hint.reveal" = "在主視窗開啟";
+"quick_launcher.hint.settings" = "設定";
+"quick_launcher.settings.results" = "搜尋結果";
+"quick_launcher.settings.show_tasks" = "顯示任務";
+"quick_launcher.filter.all" = "全部";
+"quick_launcher.filter.scheduled_only" = "僅自動";
+"quick_launcher.filter.manual_only" = "僅手動";
+"quick_launcher.subtitle.running" = "執行中";
+"quick_launcher.meta.running" = "執行中…";
+
+/* Toast messages */
+"toast.task.started" = "已啟動「%@」";
+"toast.task.stopped" = "已停止「%@」";
+"toast.task.restarted" = "已重新啟動「%@」";
+"toast.log.cleared" = "已清理殘留日誌";
+
+/* Quit confirmation */
+"quit.confirm.title" = "結束 TaskTick？";
+"quit.confirm.message" = "%d 個指令稿仍在執行中，結束後將立即終止它們：";
+"quit.confirm.cancel" = "取消";
+"quit.confirm.quit" = "結束並終止";
+
+/* Live log file (manual tasks) */
+"settings.logs.streaming" = "即時日誌檔案";
+"settings.logs.stream_to_file" = "將手動任務輸出寫入日誌檔案";
+"settings.logs.stream_to_file.hint" = "每個手動任務最近一次執行會寫入 ~/Library/Logs/TaskTick/<任務名稱>.log，方便用 tail -f 或主控台 App 即時檢視。新一次執行會覆寫舊內容。";
+"settings.logs.reveal_directory" = "在 Finder 中顯示";
+"task.detail.live_log_file" = "即時日誌檔案";
+"task.detail.live_log.reveal" = "在 Finder 顯示";
+"task.detail.live_log.console" = "在主控台開啟";
+"task.detail.live_log.copy_path" = "複製路徑";
+"task.detail.live_log.copied" = "已複製路徑";
+"task.detail.live_log.empty_hint" = "任務首次執行後會產生此檔案";
+"task.detail.elapsed" = "已執行";
+"quick_launcher.meta.running_for" = "已執行 %@";
+"quick_launcher.settings.section" = "快速啟動";
+"quick_launcher.settings.enable" = "啟用快速啟動";
+"quick_launcher.settings.shortcut" = "快速鍵";
+"quick_launcher.settings.hint" = "在任意 App 中按下快速鍵，立即彈出搜尋面板執行指令稿。點擊快速鍵欄位可重新錄製。";
 
 "log.title" = "執行日誌";
 "log.count_suffix" = "筆紀錄";
 "log.select.title" = "選擇一筆日誌";
 "log.select.description" = "從左側列表選擇一筆執行日誌檢視詳情";
+"log.empty.title" = "尚無日誌";
+"log.empty.description" = "執行任務後這裡會顯示執行紀錄。";
 "log.filter.all" = "全部";
 "log.detail.title" = "執行詳情";
 "log.detail.trigger" = "觸發方式";
 "log.detail.trigger.manual" = "手動";
 "log.detail.trigger.schedule" = "排程";
+"log.detail.trigger.launch" = "啟動";
 "log.detail.exit_code" = "結束碼";
 "log.detail.duration" = "耗時";
 "log.detail.duration_ms" = "%d 毫秒";
@@ -213,6 +287,7 @@
 "settings.general.language.restart_hint" = "切換語言後大部分介面會立即生效。";
 "settings.general.startup" = "啟動";
 "settings.general.launch_at_login" = "開機自動啟動";
+"settings.general.show_menubar_icon" = "顯示選單列圖示";
 "settings.general.defaults" = "預設值";
 "settings.general.default_shell" = "預設 Shell";
 "settings.general.default_timeout" = "預設逾時";
@@ -250,12 +325,29 @@
 "settings.backup.restore_success.message" = "資料庫已還原。應用程式即將重新啟動。";
 "settings.backup.restore_failed" = "還原失敗";
 "settings.backup.restore_failed.message" = "無法從此備份還原。備份檔案可能已損壞。";
+"settings.backup.delete_confirm.title" = "刪除備份？";
+"settings.backup.delete_confirm.message" = "此備份將被永久刪除，此操作無法復原。";
+"settings.backup.success" = "備份成功";
+"settings.backup.success.message" = "資料庫已成功備份。";
+"settings.backup.success.no_change.message" = "資料自上次備份以來沒有變更，最近一份備份依然有效，本次未產生新檔案。";
+"settings.backup.last_backup" = "上次備份";
+"settings.backup.next_backup" = "下次備份";
+"settings.backup.tasks_count" = "%d 個任務";
+"settings.backup.format.legacy" = "舊格式";
+"settings.backup.skipped.title" = "備份已略過";
+"settings.backup.restoring" = "正在還原...";
 
 "settings.logs" = "日誌";
 "settings.logs.section" = "日誌管理";
 "settings.logs.retention" = "保留期限";
 "settings.logs.retention.days" = "天";
 "settings.logs.cleanup" = "清理歷史日誌";
+"settings.logs.cleanup.confirm.title" = "清理歷史日誌？";
+"settings.logs.cleanup.confirm.message" = "早於 %d 天的執行日誌將被永久刪除，此操作無法復原。";
+"settings.logs.cleanup.cancel" = "取消";
+"settings.logs.cleanup.confirm" = "清理";
+"settings.logs.cleanup.result.title" = "清理完成";
+"settings.logs.cleanup.result.message" = "已刪除 %d 筆歷史日誌。";
 
 "settings.updates" = "更新";
 "settings.updates.section" = "自動更新";
@@ -340,6 +432,21 @@
 "update.download_error" = "下載失敗";
 "update.dmg_error" = "更新失敗";
 "update.dmg_error.message" = "下載的磁碟映像檔已損壞，請重新下載更新。";
+"update.save_failed.title" = "資料未能儲存";
+"update.save_failed.message" = "更新前無法儲存最近的變更：%@\n\n繼續更新可能會遺失未儲存的資料。";
+"update.save_failed.continue" = "繼續更新";
+"update.save_failed.cancel" = "取消";
+
+"error.save_failed.title" = "儲存失敗";
+"error.save_failed.message" = "儲存變更時發生錯誤：\n%@";
+"error.export_failed.title" = "匯出失敗";
+"error.export_failed.message" = "無法寫入匯出檔案：\n%@";
+"error.import_failed.title" = "匯入失敗";
+"error.import_read_failed" = "無法讀取所選檔案：\n%@";
+"error.import_decode_failed" = "檔案不是有效的 TaskTick 匯出檔案：\n%@";
+"error.import_save_failed" = "匯入的任務無法儲存：\n%@";
+"error.delete_failed.title" = "刪除失敗";
+"error.delete_failed.message" = "項目已從介面移除，但變更未能儲存。重新啟動後可能會再次出現。\n\n%@";
 
 /* Script Templates */
 "template.menu" = "範本";

@@ -6,6 +6,7 @@
 "menubar.no_tasks" = "Sin tareas";
 "menubar.next_run" = "Siguiente ejecución";
 "menubar.upcoming" = "Tareas próximas";
+"menubar.manual_scripts" = "Scripts manuales";
 "menubar.quit" = "Salir";
 
 /* Task List */
@@ -29,6 +30,7 @@
 "task.detail.enable" = "Activar";
 "task.detail.disable" = "Desactivar";
 "task.detail.run" = "Ejecutar";
+"task.detail.stop" = "Detener";
 "task.detail.edit" = "Editar";
 "task.detail.delete" = "Eliminar";
 "task.detail.schedule" = "Programación";
@@ -48,13 +50,14 @@
 "task.detail.show_full_script" = "Mostrar script completo";
 "task.detail.collapse_script" = "Contraer";
 
-/* Editor */
+/* Task Editor Tabs */
 "editor.tab.basic" = "Básico";
 "editor.tab.schedule" = "Programación";
 "editor.tab.script" = "Script";
-"editor.tab.content" = "Contenido";
 "editor.tab.settings" = "Ajustes";
 "editor.tab.notification" = "Notificaciones";
+
+/* Task Editor */
 "editor.title.new" = "Nueva tarea";
 "editor.title.edit" = "Editar tarea";
 "editor.cancel" = "Cancelar";
@@ -87,7 +90,10 @@
 "editor.working_dir.choose" = "Elegir directorio";
 "editor.timeout" = "Tiempo límite";
 "editor.timeout.seconds" = "segundos";
+"editor.timeout.unlimited" = "sin tiempo límite";
+"editor.timeout.hint" = "Introduce -1 (o cualquier número negativo) para desactivar el tiempo límite — el script se ejecutará hasta que termine por sí mismo o lo detengas manualmente. Útil para servidores de desarrollo y otros procesos de larga duración.";
 "editor.ignore_exit_code" = "Ignorar código de salida";
+"editor.ignore_exit_code.hint" = "Al activarse, la tarea se considera exitosa independientemente del código de salida del script. Útil para scripts que devuelven códigos distintos de cero al finalizar con normalidad.";
 "editor.pre_run.section" = "Comando previo a la ejecución";
 "editor.pre_run.enable" = "Activar comando previo";
 "editor.pre_run.placeholder" = "Opcional: comandos que se ejecutan antes del script";
@@ -95,6 +101,8 @@
 "editor.section.notification" = "Notificaciones";
 "editor.notify_success" = "Notificar al completar";
 "editor.notify_failure" = "Notificar al fallar";
+"editor.notify_only_when_output" = "Notificar solo si hay salida";
+"editor.notify_only_when_output.hint" = "Al activarse, una ejecución exitosa sin stdout no genera notificación. Usa `echo` solo cuando ocurra algo que valga la pena notificar.";
 "editor.notify_hint" = "Las notificaciones se envían a través del sistema de notificaciones de macOS cuando una tarea finaliza.";
 "editor.strong_reminder" = "Recordatorio destacado al completar";
 "editor.strong_reminder_hint" = "Mostrar un panel flotante con la salida completa cuando la tarea se ejecuta correctamente.";
@@ -121,8 +129,16 @@
 "schedule.until" = "Hasta %@";
 "schedule.after_n_times" = "%d veces";
 "schedule.run_missed" = "Ejecutar ejecución perdida";
+"schedule.launch_section" = "Inicio";
+"schedule.run_on_launch" = "Ejecutar una vez cada vez que se abre la app";
+"schedule.run_on_launch.help" = "Se ejecuta exista o no una programación";
+"schedule.trigger_section" = "Activación";
+"schedule.manual_only" = "Solo activación manual";
+"schedule.manual_only.help" = "Omite el programador — solo se ejecuta desde el menú contextual o la barra de menú";
+"tasklist.section.scheduled" = "Programadas";
+"tasklist.section.manual" = "Manuales";
 
-/* Repeat */
+/* Repeat Types */
 "repeat.never" = "Nunca";
 "repeat.every_minute" = "Cada minuto";
 "repeat.every_5_minutes" = "Cada 5 minutos";
@@ -148,12 +164,12 @@
 "repeat.every" = "Cada";
 "repeat.ok" = "Aceptar";
 
-/* End Repeat */
+/* End Repeat Types */
 "end_repeat.never" = "Nunca";
 "end_repeat.on_date" = "En una fecha";
 "end_repeat.after_count" = "Después de un número";
 
-/* Cron */
+/* Cron (legacy) */
 "cron.preset" = "Predefinido";
 "cron.custom" = "Personalizado...";
 "cron.every_minute" = "Cada minuto";
@@ -169,7 +185,7 @@
 "cron.cannot_compute" = "No se puede calcular";
 "cron.expression.placeholder" = "min hora día mes día_semana";
 
-/* Status */
+/* Execution Status */
 "status.running" = "Ejecutando";
 "status.success" = "Completada";
 "status.failure" = "Fallida";
@@ -181,15 +197,76 @@
 "notification.success" = "Completada correctamente";
 "notification.succeeded" = "Completada";
 "notification.failed" = "Fallida";
+"notification.denied.title" = "Notificaciones desactivadas";
+"notification.denied.message" = "TaskTick quiere enviarte los resultados de las tareas, pero las notificaciones están desactivadas en Ajustes del Sistema. Vuelve a activarlas para recibir notificaciones de tareas.";
+"notification.denied.open_settings" = "Abrir Ajustes del Sistema";
+"notification.denied.later" = "Más tarde";
+
+/* Quick Launcher */
+"quick_launcher.placeholder" = "Buscar tareas...";
+"quick_launcher.empty.no_tasks" = "No hay tareas disponibles";
+"quick_launcher.empty.no_match" = "Sin tareas coincidentes";
+"quick_launcher.hint.navigate" = "Navegar";
+"quick_launcher.hint.run" = "Ejecutar";
+"quick_launcher.hint.close" = "Cerrar";
+"quick_launcher.recording" = "Pulsa el atajo…";
+"quick_launcher.menu_item" = "Lanzador rápido";
+"quick_launcher.action.run" = "Ejecutar";
+"quick_launcher.action.stop" = "Detener";
+"quick_launcher.hint.stop" = "Detener";
+"quick_launcher.hint.restart" = "Reiniciar";
+"quick_launcher.hint.reveal" = "Abrir en la ventana principal";
+"quick_launcher.hint.settings" = "Ajustes";
+"quick_launcher.settings.results" = "Resultados de búsqueda";
+"quick_launcher.settings.show_tasks" = "Mostrar tareas";
+"quick_launcher.filter.all" = "Todas";
+"quick_launcher.filter.scheduled_only" = "Solo programadas";
+"quick_launcher.filter.manual_only" = "Solo manuales";
+"quick_launcher.subtitle.running" = "Ejecutando";
+"quick_launcher.meta.running" = "Ejecutando…";
+
+/* Toast messages */
+"toast.task.started" = "Iniciada «%@»";
+"toast.task.stopped" = "Detenida «%@»";
+"toast.task.restarted" = "Reiniciada «%@»";
+"toast.log.cleared" = "Registro obsoleto limpiado";
+
+/* Quit confirmation */
+"quit.confirm.title" = "¿Salir de TaskTick?";
+"quit.confirm.message" = "Hay %d script(s) en ejecución. Al salir se terminarán inmediatamente:";
+"quit.confirm.cancel" = "Cancelar";
+"quit.confirm.quit" = "Salir y terminar";
+
+/* Live log file (manual tasks) */
+"settings.logs.streaming" = "Archivo de registro en vivo";
+"settings.logs.stream_to_file" = "Volcar la salida de las tareas manuales a un archivo";
+"settings.logs.stream_to_file.hint" = "La ejecución más reciente de cada tarea manual se escribe en ~/Library/Logs/TaskTick/<nombre-tarea>.log para que puedas hacer tail -f desde un terminal o abrirla en Consola.app. Cada nueva ejecución sobrescribe el contenido anterior.";
+"settings.logs.reveal_directory" = "Mostrar en Finder";
+"task.detail.live_log_file" = "Archivo de registro en vivo";
+"task.detail.live_log.reveal" = "Mostrar en Finder";
+"task.detail.live_log.console" = "Abrir en Consola";
+"task.detail.live_log.copy_path" = "Copiar ruta";
+"task.detail.live_log.copied" = "Ruta copiada";
+"task.detail.live_log.empty_hint" = "El archivo se creará la primera vez que se ejecute esta tarea.";
+"task.detail.elapsed" = "En ejecución desde hace";
+"quick_launcher.meta.running_for" = "%@ transcurridos";
+"quick_launcher.settings.section" = "Lanzador rápido";
+"quick_launcher.settings.enable" = "Activar lanzador rápido";
+"quick_launcher.settings.shortcut" = "Atajo";
+"quick_launcher.settings.hint" = "Pulsa el atajo desde cualquier app para abrir un panel de búsqueda y ejecutar un script. Haz clic en el campo del atajo para volver a grabarlo.";
+
 "log.title" = "Registros de ejecución";
 "log.count_suffix" = "registros";
 "log.select.title" = "Selecciona un registro";
 "log.select.description" = "Selecciona un registro de la barra lateral para ver los detalles";
+"log.empty.title" = "Aún no hay registros";
+"log.empty.description" = "Ejecuta la tarea para generar registros de ejecución.";
 "log.filter.all" = "Todos";
 "log.detail.title" = "Detalles de ejecución";
 "log.detail.trigger" = "Activador";
 "log.detail.trigger.manual" = "Manual";
 "log.detail.trigger.schedule" = "Programada";
+"log.detail.trigger.launch" = "Inicio";
 "log.detail.exit_code" = "Código de salida";
 "log.detail.duration" = "Duración";
 "log.detail.duration_ms" = "%d ms";
@@ -210,16 +287,19 @@
 "settings.general.language.restart_hint" = "El cambio de idioma se aplica de inmediato en la mayoría de los elementos de la interfaz.";
 "settings.general.startup" = "Inicio";
 "settings.general.launch_at_login" = "Iniciar al iniciar sesión";
+"settings.general.show_menubar_icon" = "Mostrar icono en la barra de menú";
 "settings.general.defaults" = "Valores predeterminados";
 "settings.general.default_shell" = "Shell predeterminado";
 "settings.general.default_timeout" = "Tiempo límite predeterminado";
 "settings.general.seconds" = "segundos";
+
 "settings.notifications" = "Notificaciones";
 "settings.notifications.section" = "Configuración de notificaciones";
 "settings.notifications.enable" = "Activar notificaciones";
 "settings.notifications.on_success" = "Notificar al completar tarea";
 "settings.notifications.on_failure" = "Notificar al fallar tarea";
 "settings.notifications.hint" = "Este es un interruptor global. Cuando está desactivado, no se enviarán notificaciones de ninguna tarea, incluso si las tareas individuales tienen las notificaciones activadas.";
+
 /* Backup */
 "settings.backup" = "Copia de seguridad";
 "settings.backup.section" = "Copia de seguridad automática";
@@ -245,12 +325,30 @@
 "settings.backup.restore_success.message" = "La base de datos ha sido restaurada. La aplicación se reiniciará ahora.";
 "settings.backup.restore_failed" = "Error en la restauración";
 "settings.backup.restore_failed.message" = "No se pudo restaurar desde esta copia de seguridad. El archivo puede estar dañado.";
+"settings.backup.delete_confirm.title" = "¿Eliminar copia de seguridad?";
+"settings.backup.delete_confirm.message" = "Esta copia de seguridad se eliminará permanentemente. Esta acción no se puede deshacer.";
+"settings.backup.success" = "Copia de seguridad exitosa";
+"settings.backup.success.message" = "La base de datos se ha respaldado correctamente.";
+"settings.backup.success.no_change.message" = "No hay cambios desde la última copia de seguridad. Tu snapshot más reciente sigue siendo válido — no se escribió ningún archivo nuevo.";
+"settings.backup.last_backup" = "Última copia";
+"settings.backup.next_backup" = "Próxima copia";
+"settings.backup.tasks_count" = "%d tareas";
+"settings.backup.format.legacy" = "Formato antiguo";
+"settings.backup.skipped.title" = "Copia de seguridad omitida";
+"settings.backup.restoring" = "Restaurando...";
 
 "settings.logs" = "Registros";
 "settings.logs.section" = "Gestión de registros";
 "settings.logs.retention" = "Período de retención";
 "settings.logs.retention.days" = "días";
 "settings.logs.cleanup" = "Limpiar registros antiguos";
+"settings.logs.cleanup.confirm.title" = "¿Limpiar registros antiguos?";
+"settings.logs.cleanup.confirm.message" = "Todos los registros de ejecución de más de %d días se eliminarán permanentemente. Esta acción no se puede deshacer.";
+"settings.logs.cleanup.cancel" = "Cancelar";
+"settings.logs.cleanup.confirm" = "Limpiar";
+"settings.logs.cleanup.result.title" = "Limpieza completada";
+"settings.logs.cleanup.result.message" = "Se eliminaron %d registros de ejecución antiguos.";
+
 "settings.updates" = "Actualizaciones";
 "settings.updates.section" = "Actualizaciones automáticas";
 "settings.updates.auto_check" = "Buscar actualizaciones automáticamente";
@@ -261,6 +359,7 @@
 "settings.updates.frequency.1w" = "Cada semana";
 "settings.updates.check_now" = "Comprobar ahora";
 "settings.updates.new_version" = "Nueva versión disponible: %@";
+
 "settings.about" = "Acerca de";
 "settings.about.section" = "Acerca de TaskTick";
 "settings.about.version" = "Versión";
@@ -288,11 +387,13 @@
 "command.report_issue" = "Reportar un problema";
 "command.sponsor" = "Apoyar al desarrollador";
 
-/* Confirmations */
+/* Clear Logs Confirmation */
 "clear_logs.title" = "Limpiar registros";
 "clear_logs.message" = "¿Seguro que deseas limpiar todos los registros de ejecución de \"%@\"? El contador de ejecuciones se restablecerá. Esta acción no se puede deshacer.";
 "clear_logs.cancel" = "Cancelar";
 "clear_logs.confirm" = "Limpiar";
+
+/* Delete Confirmation */
 "delete.title" = "Confirmar eliminación";
 "delete.message" = "¿Seguro que deseas eliminar \"%@\"? Esta acción no se puede deshacer.";
 "delete.cancel" = "Cancelar";
@@ -313,7 +414,7 @@
 "crontab.comment.yes" = "Comentar";
 "crontab.comment.no" = "Mantener";
 
-/* Update */
+/* Update Dialog */
 "update.available.title" = "¡Hay una nueva versión de TaskTick disponible!";
 "update.available.message" = "TaskTick %@ está disponible — tienes la versión %@. ¿Deseas descargarla ahora?";
 "update.skip" = "Omitir esta versión";
@@ -331,8 +432,23 @@
 "update.download_error" = "Error en la descarga";
 "update.dmg_error" = "Error en la actualización";
 "update.dmg_error.message" = "La imagen de disco descargada está dañada. Intenta descargar la actualización de nuevo.";
+"update.save_failed.title" = "No se pudieron guardar los datos";
+"update.save_failed.message" = "No se pudieron guardar tus cambios recientes antes de actualizar: %@\n\nSi continúas, la actualización se instalará y es posible que se pierdan datos no guardados.";
+"update.save_failed.continue" = "Continuar actualización";
+"update.save_failed.cancel" = "Cancelar";
 
-/* Templates */
+"error.save_failed.title" = "No se pudo guardar";
+"error.save_failed.message" = "Ocurrió un error al guardar tus cambios:\n%@";
+"error.export_failed.title" = "Error en la exportación";
+"error.export_failed.message" = "No se pudo escribir el archivo de exportación:\n%@";
+"error.import_failed.title" = "Error en la importación";
+"error.import_read_failed" = "No se pudo leer el archivo seleccionado:\n%@";
+"error.import_decode_failed" = "El archivo no parece ser una exportación válida de TaskTick:\n%@";
+"error.import_save_failed" = "Las tareas importadas no se pudieron guardar:\n%@";
+"error.delete_failed.title" = "No se pudo eliminar";
+"error.delete_failed.message" = "El elemento se eliminó de la interfaz pero el cambio no se pudo guardar. Puede volver a aparecer al reiniciar.\n\n%@";
+
+/* Script Templates */
 "template.menu" = "Plantillas";
 "template.save_as" = "Guardar como plantilla";
 "template.my_templates" = "Mis plantillas";
@@ -366,7 +482,7 @@
 "template.script_hint" = "Escribe el script directamente o impórtalo desde un archivo local.";
 "editor.script.source.template" = "Desde plantilla";
 
-/* Default Templates */
+/* Default Template Names & Notes */
 "default_template.category.database" = "Copia de seguridad de base de datos";
 "default_template.category.logs" = "Limpieza de registros";
 "default_template.category.git" = "Sincronización Git";
@@ -408,7 +524,7 @@
 "default_template.webhook.name" = "Notificación por webhook";
 "default_template.webhook.notes" = "Envía un mensaje a una URL de webhook de Slack/Discord. Útil como paso de notificación posterior a una tarea.";
 
-/* Cron Human */
+/* Cron Human Readable */
 "cron.human.every_minute" = "Cada minuto";
 "cron.human.every_hour" = "Cada hora";
 "cron.human.daily_midnight" = "Diario a medianoche";
@@ -419,6 +535,21 @@
 "recovery.open_settings" = "Abrir Ajustes";
 "recovery.open_folder" = "Mostrar archivo";
 
+/* Settings → Command Line */
+"settings.cli.section.title" = "Línea de comandos";
+"settings.cli.description" = "Activa el comando `tasktick` en tu terminal para controlar TaskTick desde scripts y Raycast.";
+"settings.cli.enable_button" = "Activar CLI…";
+"settings.cli.installed" = "Enlazado en %@";
+"settings.cli.not_installed" = "No instalado";
+"settings.cli.install.alert.title" = "Activar la CLI de tasktick";
+"settings.cli.install.alert.message" = "Ejecuta este comando en Terminal para activar la CLI de `tasktick`:\n\n%@";
+"settings.cli.install.alert.copy" = "Copiar comando";
+"settings.cli.install.alert.open_terminal" = "Abrir Terminal";
+"settings.cli.install.alert.cancel" = "Cancelar";
+"settings.cli.uninstall_button" = "Desinstalar CLI…";
+"settings.cli.uninstall.alert.title" = "Desinstalar la CLI de tasktick";
+"settings.cli.uninstall.alert.message" = "Ejecuta este comando en Terminal para eliminar el symlink de la CLI de `tasktick`:\n\n%@";
+
 /* Action Toast (Run/Stop/Restart banners) */
 "toast.action.started" = "Iniciado";
 "toast.action.stopped" = "Detenido";
@@ -428,7 +559,7 @@
 "toast.action.failed.taskNotFound" = "Tarea no encontrada";
 
 "cli.repair.title" = "Actualizar enlace de tasktick CLI";
-"cli.repair.message" = "%@ apunta a una ruta antigua de la CLI. ¿Actualizar ahora? (Requiere permiso de administrador)";
+"cli.repair.message" = "El comando tasktick en %@ apunta a una ubicación obsoleta. ¿Actualizarlo a la nueva ruta ahora? (Requiere permiso de administrador.)";
 "cli.repair.update_button" = "Actualizar ahora";
 "cli.repair.later_button" = "Más tarde";
 "cli.repair.success.title" = "tasktick CLI actualizado";

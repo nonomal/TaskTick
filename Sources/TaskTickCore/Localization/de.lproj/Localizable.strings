@@ -6,6 +6,7 @@
 "menubar.no_tasks" = "Keine Aufgaben";
 "menubar.next_run" = "Nächste Ausführung";
 "menubar.upcoming" = "Anstehende Aufgaben";
+"menubar.manual_scripts" = "Manuelle Skripte";
 "menubar.quit" = "Beenden";
 
 /* Task List */
@@ -29,6 +30,7 @@
 "task.detail.enable" = "Aktivieren";
 "task.detail.disable" = "Deaktivieren";
 "task.detail.run" = "Ausführen";
+"task.detail.stop" = "Stoppen";
 "task.detail.edit" = "Bearbeiten";
 "task.detail.delete" = "Löschen";
 "task.detail.schedule" = "Zeitplan";
@@ -52,7 +54,6 @@
 "editor.tab.basic" = "Grundlagen";
 "editor.tab.schedule" = "Zeitplan";
 "editor.tab.script" = "Skript";
-"editor.tab.content" = "Inhalt";
 "editor.tab.settings" = "Einstellungen";
 "editor.tab.notification" = "Benachrichtigungen";
 
@@ -89,7 +90,10 @@
 "editor.working_dir.choose" = "Verzeichnis auswählen";
 "editor.timeout" = "Zeitlimit";
 "editor.timeout.seconds" = "Sekunden";
+"editor.timeout.unlimited" = "kein Zeitlimit";
+"editor.timeout.hint" = "Gib -1 (oder eine beliebige negative Zahl) ein, um kein Zeitlimit zu setzen — das Skript läuft, bis es sich selbst beendet oder manuell gestoppt wird. Nützlich für Dev-Server und andere langlaufende Prozesse.";
 "editor.ignore_exit_code" = "Exit-Code ignorieren";
+"editor.ignore_exit_code.hint" = "Wenn aktiviert, wird die Aufgabe unabhängig vom Exit-Code des Skripts als erfolgreich gewertet. Nützlich für Skripte, die bei normalem Abschluss einen Exit-Code ungleich null zurückgeben.";
 "editor.pre_run.section" = "Vor-Ausführungsbefehl";
 "editor.pre_run.enable" = "Vor-Ausführungsbefehl aktivieren";
 "editor.pre_run.placeholder" = "Optional: Befehle, die vor dem Skript ausgeführt werden";
@@ -97,6 +101,8 @@
 "editor.section.notification" = "Benachrichtigungen";
 "editor.notify_success" = "Bei Erfolg benachrichtigen";
 "editor.notify_failure" = "Bei Fehler benachrichtigen";
+"editor.notify_only_when_output" = "Nur bei Ausgabe benachrichtigen";
+"editor.notify_only_when_output.hint" = "Wenn aktiviert, bleibt ein erfolgreicher Lauf ohne stdout-Ausgabe stumm. Verwende `echo` nur dann, wenn tatsächlich etwas Meldenswertes passiert ist.";
 "editor.notify_hint" = "Benachrichtigungen werden über macOS-Systembenachrichtigungen gesendet, wenn eine Aufgabe abgeschlossen ist.";
 "editor.strong_reminder" = "Starke Erinnerung bei Erfolg";
 "editor.strong_reminder_hint" = "Zeigt ein schwebendes Fenster mit der vollständigen Ausgabe an, wenn die Aufgabe erfolgreich ist.";
@@ -123,6 +129,14 @@
 "schedule.until" = "Bis %@";
 "schedule.after_n_times" = "%d Mal";
 "schedule.run_missed" = "Versäumte Ausführung nachholen";
+"schedule.launch_section" = "Start";
+"schedule.run_on_launch" = "Bei jedem App-Start einmal ausführen";
+"schedule.run_on_launch.help" = "Wird ausgeführt, unabhängig davon, ob ein Zeitplan festgelegt ist";
+"schedule.trigger_section" = "Auslöser";
+"schedule.manual_only" = "Nur manueller Auslöser";
+"schedule.manual_only.help" = "Umgeht den Planer — wird nur per Rechtsklick oder über die Menüleiste ausgeführt";
+"tasklist.section.scheduled" = "Geplant";
+"tasklist.section.manual" = "Manuell";
 
 /* Repeat Types */
 "repeat.never" = "Nie";
@@ -183,16 +197,76 @@
 "notification.success" = "Erfolgreich abgeschlossen";
 "notification.succeeded" = "Erfolgreich";
 "notification.failed" = "Fehlgeschlagen";
+"notification.denied.title" = "Benachrichtigungen deaktiviert";
+"notification.denied.message" = "TaskTick möchte Aufgabenergebnisse zustellen, aber Benachrichtigungen sind in den Systemeinstellungen deaktiviert. Bitte aktiviere sie wieder, um Aufgabenbenachrichtigungen zu erhalten.";
+"notification.denied.open_settings" = "Systemeinstellungen öffnen";
+"notification.denied.later" = "Später";
+
+/* Quick Launcher */
+"quick_launcher.placeholder" = "Aufgaben suchen...";
+"quick_launcher.empty.no_tasks" = "Keine Aufgaben verfügbar";
+"quick_launcher.empty.no_match" = "Keine passenden Aufgaben";
+"quick_launcher.hint.navigate" = "Navigieren";
+"quick_launcher.hint.run" = "Ausführen";
+"quick_launcher.hint.close" = "Schließen";
+"quick_launcher.recording" = "Tastenkombination drücken…";
+"quick_launcher.menu_item" = "Quick Launcher";
+"quick_launcher.action.run" = "Ausführen";
+"quick_launcher.action.stop" = "Stoppen";
+"quick_launcher.hint.stop" = "Stoppen";
+"quick_launcher.hint.restart" = "Neu starten";
+"quick_launcher.hint.reveal" = "Im Hauptfenster öffnen";
+"quick_launcher.hint.settings" = "Einstellungen";
+"quick_launcher.settings.results" = "Suchergebnisse";
+"quick_launcher.settings.show_tasks" = "Aufgaben anzeigen";
+"quick_launcher.filter.all" = "Alle";
+"quick_launcher.filter.scheduled_only" = "Nur geplante";
+"quick_launcher.filter.manual_only" = "Nur manuelle";
+"quick_launcher.subtitle.running" = "Läuft";
+"quick_launcher.meta.running" = "Läuft…";
+
+/* Toast messages */
+"toast.task.started" = "„%@“ gestartet";
+"toast.task.stopped" = "„%@“ gestoppt";
+"toast.task.restarted" = "„%@“ neu gestartet";
+"toast.log.cleared" = "Veraltetes Protokoll bereinigt";
+
+/* Quit confirmation */
+"quit.confirm.title" = "TaskTick beenden?";
+"quit.confirm.message" = "%d Skript(e) laufen noch. Beim Beenden werden sie sofort terminiert:";
+"quit.confirm.cancel" = "Abbrechen";
+"quit.confirm.quit" = "Beenden und terminieren";
+
+/* Live log file (manual tasks) */
+"settings.logs.streaming" = "Live-Protokolldatei";
+"settings.logs.stream_to_file" = "Ausgabe manueller Aufgaben in Datei schreiben";
+"settings.logs.stream_to_file.hint" = "Die jüngste Ausführung jeder manuellen Aufgabe wird in ~/Library/Logs/TaskTick/<Aufgabenname>.log geschrieben, sodass du sie im Terminal mit tail -f verfolgen oder in Console.app öffnen kannst. Jede neue Ausführung überschreibt den vorherigen Inhalt.";
+"settings.logs.reveal_directory" = "Im Finder anzeigen";
+"task.detail.live_log_file" = "Live-Protokolldatei";
+"task.detail.live_log.reveal" = "Im Finder anzeigen";
+"task.detail.live_log.console" = "In Console öffnen";
+"task.detail.live_log.copy_path" = "Pfad kopieren";
+"task.detail.live_log.copied" = "Pfad kopiert";
+"task.detail.live_log.empty_hint" = "Die Datei wird beim ersten Ausführen dieser Aufgabe erstellt.";
+"task.detail.elapsed" = "Läuft seit";
+"quick_launcher.meta.running_for" = "%@ vergangen";
+"quick_launcher.settings.section" = "Quick Launcher";
+"quick_launcher.settings.enable" = "Quick Launcher aktivieren";
+"quick_launcher.settings.shortcut" = "Tastenkombination";
+"quick_launcher.settings.hint" = "Drücke die Tastenkombination in einer beliebigen App, um ein Suchfenster zu öffnen und ein Skript auszuführen. Klicke ins Tastenkombinationsfeld, um sie neu aufzunehmen.";
 
 "log.title" = "Ausführungsprotokolle";
 "log.count_suffix" = "Einträge";
 "log.select.title" = "Protokoll auswählen";
 "log.select.description" = "Wähle einen Protokolleintrag in der Seitenleiste aus, um Details anzuzeigen";
+"log.empty.title" = "Noch keine Protokolle";
+"log.empty.description" = "Führe die Aufgabe aus, um Ausführungsprotokolle zu erzeugen.";
 "log.filter.all" = "Alle";
 "log.detail.title" = "Ausführungsdetails";
 "log.detail.trigger" = "Auslöser";
 "log.detail.trigger.manual" = "Manuell";
 "log.detail.trigger.schedule" = "Geplant";
+"log.detail.trigger.launch" = "Start";
 "log.detail.exit_code" = "Exit-Code";
 "log.detail.duration" = "Dauer";
 "log.detail.duration_ms" = "%d ms";
@@ -213,6 +287,7 @@
 "settings.general.language.restart_hint" = "Die Sprachänderung wird für die meisten UI-Elemente sofort wirksam.";
 "settings.general.startup" = "Autostart";
 "settings.general.launch_at_login" = "Beim Anmelden starten";
+"settings.general.show_menubar_icon" = "Menüleistensymbol anzeigen";
 "settings.general.defaults" = "Standardwerte";
 "settings.general.default_shell" = "Standard-Shell";
 "settings.general.default_timeout" = "Standard-Zeitlimit";
@@ -250,12 +325,29 @@
 "settings.backup.restore_success.message" = "Die Datenbank wurde wiederhergestellt. Die App wird jetzt neu gestartet.";
 "settings.backup.restore_failed" = "Wiederherstellung fehlgeschlagen";
 "settings.backup.restore_failed.message" = "Wiederherstellung aus diesem Backup fehlgeschlagen. Die Backup-Datei ist möglicherweise beschädigt.";
+"settings.backup.delete_confirm.title" = "Backup löschen?";
+"settings.backup.delete_confirm.message" = "Dieses Backup wird dauerhaft gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.";
+"settings.backup.success" = "Backup erfolgreich";
+"settings.backup.success.message" = "Die Datenbank wurde erfolgreich gesichert.";
+"settings.backup.success.no_change.message" = "Seit dem letzten Backup gab es keine Änderungen. Dein letzter Snapshot ist weiterhin gültig — es wurde keine neue Datei geschrieben.";
+"settings.backup.last_backup" = "Letztes Backup";
+"settings.backup.next_backup" = "Nächstes Backup";
+"settings.backup.tasks_count" = "%d Aufgaben";
+"settings.backup.format.legacy" = "Altes Format";
+"settings.backup.skipped.title" = "Backup übersprungen";
+"settings.backup.restoring" = "Wiederherstellung läuft...";
 
 "settings.logs" = "Protokolle";
 "settings.logs.section" = "Protokollverwaltung";
 "settings.logs.retention" = "Aufbewahrungsdauer";
 "settings.logs.retention.days" = "Tage";
 "settings.logs.cleanup" = "Alte Protokolle bereinigen";
+"settings.logs.cleanup.confirm.title" = "Alte Protokolle bereinigen?";
+"settings.logs.cleanup.confirm.message" = "Alle Ausführungsprotokolle, die älter als %d Tage sind, werden dauerhaft gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.";
+"settings.logs.cleanup.cancel" = "Abbrechen";
+"settings.logs.cleanup.confirm" = "Bereinigen";
+"settings.logs.cleanup.result.title" = "Bereinigung abgeschlossen";
+"settings.logs.cleanup.result.message" = "%d alte Ausführungsprotokolle gelöscht.";
 
 "settings.updates" = "Updates";
 "settings.updates.section" = "Automatische Updates";
@@ -340,6 +432,21 @@
 "update.download_error" = "Download fehlgeschlagen";
 "update.dmg_error" = "Update fehlgeschlagen";
 "update.dmg_error.message" = "Das heruntergeladene Disk-Image ist beschädigt. Bitte versuche, das Update erneut herunterzuladen.";
+"update.save_failed.title" = "Daten konnten nicht gespeichert werden";
+"update.save_failed.message" = "Deine letzten Änderungen konnten vor dem Update nicht gespeichert werden: %@\n\nWenn du fortfährst, wird das Update mit möglicherweise nicht gespeicherten Daten installiert.";
+"update.save_failed.continue" = "Update fortsetzen";
+"update.save_failed.cancel" = "Abbrechen";
+
+"error.save_failed.title" = "Speichern fehlgeschlagen";
+"error.save_failed.message" = "Beim Speichern deiner Änderungen ist ein Fehler aufgetreten:\n%@";
+"error.export_failed.title" = "Export fehlgeschlagen";
+"error.export_failed.message" = "Die Exportdatei konnte nicht geschrieben werden:\n%@";
+"error.import_failed.title" = "Import fehlgeschlagen";
+"error.import_read_failed" = "Die ausgewählte Datei konnte nicht gelesen werden:\n%@";
+"error.import_decode_failed" = "Die Datei scheint kein gültiger TaskTick-Export zu sein:\n%@";
+"error.import_save_failed" = "Importierte Aufgaben konnten nicht gespeichert werden:\n%@";
+"error.delete_failed.title" = "Löschen fehlgeschlagen";
+"error.delete_failed.message" = "Das Objekt wurde entfernt, aber die Änderung konnte nicht gespeichert werden. Es kann beim Neustart wieder erscheinen.\n\n%@";
 
 /* Script Templates */
 "template.menu" = "Vorlagen";
@@ -427,6 +534,21 @@
 "recovery.message" = "Die Datenbank konnte nicht geöffnet werden. Ihre Datendatei wurde beibehalten. Sie können ein Backup in den Einstellungen wiederherstellen oder die Datenbankdatei manuell suchen.";
 "recovery.open_settings" = "Einstellungen öffnen";
 "recovery.open_folder" = "Datenbankdatei anzeigen";
+
+/* Settings → Command Line */
+"settings.cli.section.title" = "Befehlszeile";
+"settings.cli.description" = "Aktiviere den `tasktick`-Befehl im Terminal, um TaskTick aus Skripten und Raycast zu steuern.";
+"settings.cli.enable_button" = "CLI aktivieren…";
+"settings.cli.installed" = "Verlinkt unter %@";
+"settings.cli.not_installed" = "Nicht installiert";
+"settings.cli.install.alert.title" = "tasktick-CLI aktivieren";
+"settings.cli.install.alert.message" = "Führe diesen Befehl im Terminal aus, um die `tasktick`-CLI zu aktivieren:\n\n%@";
+"settings.cli.install.alert.copy" = "Befehl kopieren";
+"settings.cli.install.alert.open_terminal" = "Terminal öffnen";
+"settings.cli.install.alert.cancel" = "Abbrechen";
+"settings.cli.uninstall_button" = "CLI deinstallieren…";
+"settings.cli.uninstall.alert.title" = "tasktick-CLI deinstallieren";
+"settings.cli.uninstall.alert.message" = "Führe diesen Befehl im Terminal aus, um den `tasktick`-CLI-Symlink zu entfernen:\n\n%@";
 
 /* Action Toast (Run/Stop/Restart banners) */
 "toast.action.started" = "Gestartet";

@@ -6,6 +6,7 @@
 "menubar.no_tasks" = "Tidak Ada Tugas";
 "menubar.next_run" = "Eksekusi Berikutnya";
 "menubar.upcoming" = "Tugas Mendatang";
+"menubar.manual_scripts" = "Skrip Manual";
 "menubar.quit" = "Keluar";
 
 /* Task List */
@@ -29,6 +30,7 @@
 "task.detail.enable" = "Aktifkan";
 "task.detail.disable" = "Nonaktifkan";
 "task.detail.run" = "Jalankan";
+"task.detail.stop" = "Hentikan";
 "task.detail.edit" = "Edit";
 "task.detail.delete" = "Hapus";
 "task.detail.schedule" = "Jadwal";
@@ -52,7 +54,6 @@
 "editor.tab.basic" = "Dasar";
 "editor.tab.schedule" = "Jadwal";
 "editor.tab.script" = "Skrip";
-"editor.tab.content" = "Konten";
 "editor.tab.settings" = "Pengaturan";
 "editor.tab.notification" = "Notifikasi";
 
@@ -89,7 +90,10 @@
 "editor.working_dir.choose" = "Pilih Direktori";
 "editor.timeout" = "Batas Waktu";
 "editor.timeout.seconds" = "detik";
+"editor.timeout.unlimited" = "tanpa batas waktu";
+"editor.timeout.hint" = "Masukkan -1 (atau angka negatif apa pun) untuk tanpa batas waktu — skrip akan berjalan sampai berhenti sendiri atau dihentikan secara manual. Berguna untuk dev server dan proses lain yang berjalan lama.";
 "editor.ignore_exit_code" = "Abaikan Kode Keluar";
+"editor.ignore_exit_code.hint" = "Jika diaktifkan, tugas dianggap berhasil terlepas dari exit code skrip. Berguna untuk skrip yang mengembalikan kode non-nol pada penyelesaian normal.";
 "editor.pre_run.section" = "Perintah Pra-Jalankan";
 "editor.pre_run.enable" = "Aktifkan Perintah Pra-Jalankan";
 "editor.pre_run.placeholder" = "Opsional: perintah yang dijalankan sebelum skrip";
@@ -97,6 +101,8 @@
 "editor.section.notification" = "Notifikasi";
 "editor.notify_success" = "Notifikasi saat Berhasil";
 "editor.notify_failure" = "Notifikasi saat Gagal";
+"editor.notify_only_when_output" = "Beri Tahu Hanya Jika Ada Output";
+"editor.notify_only_when_output.hint" = "Jika diaktifkan, eksekusi yang berhasil tanpa stdout akan tetap senyap. Gunakan `echo` hanya saat ada sesuatu yang benar-benar layak diberitahukan.";
 "editor.notify_hint" = "Notifikasi dikirim melalui notifikasi sistem macOS saat tugas selesai.";
 "editor.strong_reminder" = "Pengingat Kuat saat Berhasil";
 "editor.strong_reminder_hint" = "Tampilkan panel mengambang dengan output lengkap saat tugas berhasil.";
@@ -123,6 +129,14 @@
 "schedule.until" = "Hingga %@";
 "schedule.after_n_times" = "%d kali";
 "schedule.run_missed" = "Jalankan Eksekusi yang Terlewat";
+"schedule.launch_section" = "Saat Diluncurkan";
+"schedule.run_on_launch" = "Jalankan sekali setiap kali aplikasi diluncurkan";
+"schedule.run_on_launch.help" = "Berjalan terlepas dari ada atau tidaknya jadwal yang diatur";
+"schedule.trigger_section" = "Pemicu";
+"schedule.manual_only" = "Hanya pemicu manual";
+"schedule.manual_only.help" = "Lewati penjadwal — hanya dijalankan via klik kanan atau bilah menu";
+"tasklist.section.scheduled" = "Terjadwal";
+"tasklist.section.manual" = "Manual";
 
 /* Repeat Types */
 "repeat.never" = "Tidak Pernah";
@@ -183,16 +197,76 @@
 "notification.success" = "Berhasil diselesaikan";
 "notification.succeeded" = "Berhasil";
 "notification.failed" = "Gagal";
+"notification.denied.title" = "Notifikasi Dinonaktifkan";
+"notification.denied.message" = "TaskTick ingin mengirimkan hasil tugas, tetapi notifikasi telah dimatikan di Pengaturan Sistem. Silakan aktifkan kembali untuk menerima notifikasi tugas.";
+"notification.denied.open_settings" = "Buka Pengaturan Sistem";
+"notification.denied.later" = "Nanti";
+
+/* Quick Launcher */
+"quick_launcher.placeholder" = "Cari tugas...";
+"quick_launcher.empty.no_tasks" = "Tidak ada tugas tersedia";
+"quick_launcher.empty.no_match" = "Tidak ada tugas yang cocok";
+"quick_launcher.hint.navigate" = "Navigasi";
+"quick_launcher.hint.run" = "Jalankan";
+"quick_launcher.hint.close" = "Tutup";
+"quick_launcher.recording" = "Tekan pintasan…";
+"quick_launcher.menu_item" = "Akses Cepat";
+"quick_launcher.action.run" = "Jalankan";
+"quick_launcher.action.stop" = "Hentikan";
+"quick_launcher.hint.stop" = "Hentikan";
+"quick_launcher.hint.restart" = "Mulai Ulang";
+"quick_launcher.hint.reveal" = "Buka di jendela utama";
+"quick_launcher.hint.settings" = "Pengaturan";
+"quick_launcher.settings.results" = "Hasil Pencarian";
+"quick_launcher.settings.show_tasks" = "Tampilkan tugas";
+"quick_launcher.filter.all" = "Semua";
+"quick_launcher.filter.scheduled_only" = "Hanya terjadwal";
+"quick_launcher.filter.manual_only" = "Hanya manual";
+"quick_launcher.subtitle.running" = "Berjalan";
+"quick_launcher.meta.running" = "Berjalan…";
+
+/* Toast messages */
+"toast.task.started" = "Memulai \"%@\"";
+"toast.task.stopped" = "Menghentikan \"%@\"";
+"toast.task.restarted" = "Memulai ulang \"%@\"";
+"toast.log.cleared" = "Log usang telah dibersihkan";
+
+/* Quit confirmation */
+"quit.confirm.title" = "Keluar dari TaskTick?";
+"quit.confirm.message" = "%d skrip masih berjalan. Keluar akan langsung menghentikannya:";
+"quit.confirm.cancel" = "Batal";
+"quit.confirm.quit" = "Keluar dan Hentikan";
+
+/* Live log file (manual tasks) */
+"settings.logs.streaming" = "File Log Langsung";
+"settings.logs.stream_to_file" = "Streaming output tugas manual ke file";
+"settings.logs.stream_to_file.hint" = "Setiap eksekusi terbaru dari tugas manual ditulis ke ~/Library/Logs/TaskTick/<nama-tugas>.log sehingga Anda dapat tail -f dari terminal atau membukanya di Console.app. Setiap eksekusi baru menimpa konten sebelumnya.";
+"settings.logs.reveal_directory" = "Tampilkan di Finder";
+"task.detail.live_log_file" = "File Log Langsung";
+"task.detail.live_log.reveal" = "Tampilkan di Finder";
+"task.detail.live_log.console" = "Buka di Console";
+"task.detail.live_log.copy_path" = "Salin Jalur";
+"task.detail.live_log.copied" = "Jalur disalin";
+"task.detail.live_log.empty_hint" = "File akan dibuat saat tugas ini pertama kali dijalankan.";
+"task.detail.elapsed" = "Berjalan selama";
+"quick_launcher.meta.running_for" = "%@ berlalu";
+"quick_launcher.settings.section" = "Akses Cepat";
+"quick_launcher.settings.enable" = "Aktifkan Akses Cepat";
+"quick_launcher.settings.shortcut" = "Pintasan";
+"quick_launcher.settings.hint" = "Tekan pintasan dari aplikasi apa pun untuk membuka panel pencarian dan menjalankan skrip. Klik bidang pintasan untuk merekam ulang.";
 
 "log.title" = "Log Eksekusi";
 "log.count_suffix" = "catatan";
 "log.select.title" = "Pilih Log";
 "log.select.description" = "Pilih entri log dari bilah sisi untuk melihat detail";
+"log.empty.title" = "Belum Ada Log";
+"log.empty.description" = "Jalankan tugas untuk menghasilkan log eksekusi.";
 "log.filter.all" = "Semua";
 "log.detail.title" = "Detail Eksekusi";
 "log.detail.trigger" = "Pemicu";
 "log.detail.trigger.manual" = "Manual";
 "log.detail.trigger.schedule" = "Terjadwal";
+"log.detail.trigger.launch" = "Peluncuran";
 "log.detail.exit_code" = "Kode Keluar";
 "log.detail.duration" = "Durasi";
 "log.detail.duration_ms" = "%d md";
@@ -213,6 +287,7 @@
 "settings.general.language.restart_hint" = "Perubahan bahasa langsung berlaku untuk sebagian besar elemen antarmuka.";
 "settings.general.startup" = "Mulai Otomatis";
 "settings.general.launch_at_login" = "Jalankan saat Login";
+"settings.general.show_menubar_icon" = "Tampilkan ikon bilah menu";
 "settings.general.defaults" = "Bawaan";
 "settings.general.default_shell" = "Shell Bawaan";
 "settings.general.default_timeout" = "Batas Waktu Bawaan";
@@ -250,12 +325,29 @@
 "settings.backup.restore_success.message" = "Database telah dipulihkan. Aplikasi akan dimulai ulang sekarang.";
 "settings.backup.restore_failed" = "Pemulihan Gagal";
 "settings.backup.restore_failed.message" = "Gagal memulihkan dari cadangan ini. File cadangan mungkin rusak.";
+"settings.backup.delete_confirm.title" = "Hapus Cadangan?";
+"settings.backup.delete_confirm.message" = "Cadangan ini akan dihapus secara permanen. Tindakan ini tidak dapat dibatalkan.";
+"settings.backup.success" = "Pencadangan Berhasil";
+"settings.backup.success.message" = "Database berhasil dicadangkan.";
+"settings.backup.success.no_change.message" = "Tidak ada perubahan sejak pencadangan terakhir. Snapshot terbaru Anda masih valid — tidak ada file baru yang ditulis.";
+"settings.backup.last_backup" = "Cadangan Terakhir";
+"settings.backup.next_backup" = "Cadangan Berikutnya";
+"settings.backup.tasks_count" = "%d tugas";
+"settings.backup.format.legacy" = "Format Lama";
+"settings.backup.skipped.title" = "Pencadangan Dilewati";
+"settings.backup.restoring" = "Memulihkan...";
 
 "settings.logs" = "Log";
 "settings.logs.section" = "Manajemen Log";
 "settings.logs.retention" = "Periode Penyimpanan";
 "settings.logs.retention.days" = "hari";
 "settings.logs.cleanup" = "Bersihkan Log Lama";
+"settings.logs.cleanup.confirm.title" = "Bersihkan Log Lama?";
+"settings.logs.cleanup.confirm.message" = "Semua log eksekusi yang lebih lama dari %d hari akan dihapus secara permanen. Tindakan ini tidak dapat dibatalkan.";
+"settings.logs.cleanup.cancel" = "Batal";
+"settings.logs.cleanup.confirm" = "Bersihkan";
+"settings.logs.cleanup.result.title" = "Pembersihan Selesai";
+"settings.logs.cleanup.result.message" = "%d log eksekusi lama dihapus.";
 
 "settings.updates" = "Pembaruan";
 "settings.updates.section" = "Pembaruan Otomatis";
@@ -340,6 +432,21 @@
 "update.download_error" = "Unduhan Gagal";
 "update.dmg_error" = "Pembaruan Gagal";
 "update.dmg_error.message" = "Disk image yang diunduh rusak. Silakan coba unduh pembaruan lagi.";
+"update.save_failed.title" = "Tidak Dapat Menyimpan Data";
+"update.save_failed.message" = "Perubahan terbaru Anda tidak dapat disimpan sebelum pembaruan: %@\n\nMelanjutkan akan memasang pembaruan dengan kemungkinan data yang belum disimpan.";
+"update.save_failed.continue" = "Lanjutkan Pembaruan";
+"update.save_failed.cancel" = "Batal";
+
+"error.save_failed.title" = "Tidak Dapat Menyimpan";
+"error.save_failed.message" = "Terjadi kesalahan saat menyimpan perubahan Anda:\n%@";
+"error.export_failed.title" = "Ekspor Gagal";
+"error.export_failed.message" = "Tidak dapat menulis file ekspor:\n%@";
+"error.import_failed.title" = "Impor Gagal";
+"error.import_read_failed" = "Tidak dapat membaca file yang dipilih:\n%@";
+"error.import_decode_failed" = "File tidak terlihat seperti ekspor TaskTick yang valid:\n%@";
+"error.import_save_failed" = "Tugas yang diimpor tidak dapat disimpan:\n%@";
+"error.delete_failed.title" = "Tidak Dapat Menghapus";
+"error.delete_failed.message" = "Item telah dihapus tetapi perubahan tidak dapat disimpan. Mungkin muncul kembali saat dimulai ulang.\n\n%@";
 
 /* Script Templates */
 "template.menu" = "Templat";
@@ -427,6 +534,21 @@
 "recovery.message" = "Database tidak dapat dibuka. File data Anda telah disimpan. Anda dapat memulihkan dari cadangan di Pengaturan atau mencari file database secara manual.";
 "recovery.open_settings" = "Buka Pengaturan";
 "recovery.open_folder" = "Tampilkan File Database";
+
+/* Settings → Command Line */
+"settings.cli.section.title" = "Baris Perintah";
+"settings.cli.description" = "Aktifkan perintah `tasktick` di terminal Anda untuk mengontrol TaskTick dari skrip dan Raycast.";
+"settings.cli.enable_button" = "Aktifkan CLI…";
+"settings.cli.installed" = "Tertaut di %@";
+"settings.cli.not_installed" = "Belum dipasang";
+"settings.cli.install.alert.title" = "Aktifkan tasktick CLI";
+"settings.cli.install.alert.message" = "Jalankan perintah ini di Terminal untuk mengaktifkan CLI `tasktick`:\n\n%@";
+"settings.cli.install.alert.copy" = "Salin Perintah";
+"settings.cli.install.alert.open_terminal" = "Buka Terminal";
+"settings.cli.install.alert.cancel" = "Batal";
+"settings.cli.uninstall_button" = "Lepas CLI…";
+"settings.cli.uninstall.alert.title" = "Lepas tasktick CLI";
+"settings.cli.uninstall.alert.message" = "Jalankan perintah ini di Terminal untuk menghapus symlink CLI `tasktick`:\n\n%@";
 
 /* Action Toast (Run/Stop/Restart banners) */
 "toast.action.started" = "Dimulai";

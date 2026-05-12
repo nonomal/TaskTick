@@ -6,6 +6,7 @@
 "menubar.no_tasks" = "Нет задач";
 "menubar.next_run" = "Следующий запуск";
 "menubar.upcoming" = "Предстоящие задачи";
+"menubar.manual_scripts" = "Ручные скрипты";
 "menubar.quit" = "Выход";
 
 /* Task List */
@@ -29,6 +30,7 @@
 "task.detail.enable" = "Включить";
 "task.detail.disable" = "Отключить";
 "task.detail.run" = "Запустить";
+"task.detail.stop" = "Остановить";
 "task.detail.edit" = "Редактировать";
 "task.detail.delete" = "Удалить";
 "task.detail.schedule" = "Расписание";
@@ -52,7 +54,6 @@
 "editor.tab.basic" = "Основное";
 "editor.tab.schedule" = "Расписание";
 "editor.tab.script" = "Скрипт";
-"editor.tab.content" = "Содержимое";
 "editor.tab.settings" = "Настройки";
 "editor.tab.notification" = "Уведомления";
 
@@ -89,7 +90,10 @@
 "editor.working_dir.choose" = "Выбрать директорию";
 "editor.timeout" = "Тайм-аут";
 "editor.timeout.seconds" = "секунд";
+"editor.timeout.unlimited" = "без тайм-аута";
+"editor.timeout.hint" = "Введите -1 (или любое отрицательное число), чтобы отключить тайм-аут — скрипт будет работать, пока не завершится сам или не будет остановлен вручную. Удобно для dev-серверов и других долгоживущих процессов.";
 "editor.ignore_exit_code" = "Игнорировать код выхода";
+"editor.ignore_exit_code.hint" = "Если включено, задача считается успешной независимо от кода выхода скрипта. Удобно для скриптов, которые возвращают ненулевой код при штатном завершении.";
 "editor.pre_run.section" = "Команда перед запуском";
 "editor.pre_run.enable" = "Включить команду перед запуском";
 "editor.pre_run.placeholder" = "Необязательно: команды, выполняемые перед скриптом";
@@ -97,6 +101,8 @@
 "editor.section.notification" = "Уведомления";
 "editor.notify_success" = "Уведомлять при успехе";
 "editor.notify_failure" = "Уведомлять при ошибке";
+"editor.notify_only_when_output" = "Уведомлять только при наличии вывода";
+"editor.notify_only_when_output.hint" = "Если включено, успешный запуск без вывода в stdout остаётся беззвучным. Используйте `echo` только тогда, когда действительно произошло что-то, о чём стоит уведомить.";
 "editor.notify_hint" = "Уведомления отправляются через системные уведомления macOS по завершении задачи.";
 "editor.strong_reminder" = "Усиленное напоминание при успехе";
 "editor.strong_reminder_hint" = "Показать плавающую панель с полным выводом при успешном выполнении задачи.";
@@ -123,6 +129,14 @@
 "schedule.until" = "До %@";
 "schedule.after_n_times" = "%d раз";
 "schedule.run_missed" = "Выполнить пропущенный запуск";
+"schedule.launch_section" = "Запуск приложения";
+"schedule.run_on_launch" = "Выполнять при каждом запуске приложения";
+"schedule.run_on_launch.help" = "Запускается независимо от наличия расписания";
+"schedule.trigger_section" = "Триггер";
+"schedule.manual_only" = "Только ручной запуск";
+"schedule.manual_only.help" = "Пропустить планировщик — запуск только через контекстное меню или строку меню";
+"tasklist.section.scheduled" = "По расписанию";
+"tasklist.section.manual" = "Вручную";
 
 /* Repeat Types */
 "repeat.never" = "Никогда";
@@ -183,16 +197,76 @@
 "notification.success" = "Выполнено успешно";
 "notification.succeeded" = "Успешно";
 "notification.failed" = "Ошибка";
+"notification.denied.title" = "Уведомления отключены";
+"notification.denied.message" = "TaskTick хочет отправлять результаты выполнения задач, но уведомления отключены в Системных настройках. Включите их снова, чтобы получать уведомления о задачах.";
+"notification.denied.open_settings" = "Открыть Системные настройки";
+"notification.denied.later" = "Позже";
+
+/* Quick Launcher */
+"quick_launcher.placeholder" = "Поиск задач...";
+"quick_launcher.empty.no_tasks" = "Нет доступных задач";
+"quick_launcher.empty.no_match" = "Ничего не найдено";
+"quick_launcher.hint.navigate" = "Навигация";
+"quick_launcher.hint.run" = "Запустить";
+"quick_launcher.hint.close" = "Закрыть";
+"quick_launcher.recording" = "Нажмите сочетание клавиш…";
+"quick_launcher.menu_item" = "Быстрый запуск";
+"quick_launcher.action.run" = "Запустить";
+"quick_launcher.action.stop" = "Остановить";
+"quick_launcher.hint.stop" = "Остановить";
+"quick_launcher.hint.restart" = "Перезапустить";
+"quick_launcher.hint.reveal" = "Открыть в главном окне";
+"quick_launcher.hint.settings" = "Настройки";
+"quick_launcher.settings.results" = "Результаты поиска";
+"quick_launcher.settings.show_tasks" = "Показывать задачи";
+"quick_launcher.filter.all" = "Все";
+"quick_launcher.filter.scheduled_only" = "Только по расписанию";
+"quick_launcher.filter.manual_only" = "Только ручные";
+"quick_launcher.subtitle.running" = "Выполняется";
+"quick_launcher.meta.running" = "Выполняется…";
+
+/* Toast messages */
+"toast.task.started" = "Запущено «%@»";
+"toast.task.stopped" = "Остановлено «%@»";
+"toast.task.restarted" = "Перезапущено «%@»";
+"toast.log.cleared" = "Устаревший лог очищен";
+
+/* Quit confirmation */
+"quit.confirm.title" = "Выйти из TaskTick?";
+"quit.confirm.message" = "Сейчас выполняется скриптов: %d. Выход немедленно остановит их:";
+"quit.confirm.cancel" = "Отмена";
+"quit.confirm.quit" = "Выйти и остановить";
+
+/* Live log file (manual tasks) */
+"settings.logs.streaming" = "Файл живого лога";
+"settings.logs.stream_to_file" = "Записывать вывод ручных задач в файл";
+"settings.logs.stream_to_file.hint" = "Последний запуск каждой ручной задачи записывается в ~/Library/Logs/TaskTick/<имя-задачи>.log, чтобы можно было следить через tail -f или открывать в Console.app. Каждый новый запуск перезаписывает предыдущее содержимое.";
+"settings.logs.reveal_directory" = "Показать в Finder";
+"task.detail.live_log_file" = "Файл живого лога";
+"task.detail.live_log.reveal" = "Показать в Finder";
+"task.detail.live_log.console" = "Открыть в Console";
+"task.detail.live_log.copy_path" = "Скопировать путь";
+"task.detail.live_log.copied" = "Путь скопирован";
+"task.detail.live_log.empty_hint" = "Файл будет создан при первом запуске задачи.";
+"task.detail.elapsed" = "Выполняется уже";
+"quick_launcher.meta.running_for" = "Прошло %@";
+"quick_launcher.settings.section" = "Быстрый запуск";
+"quick_launcher.settings.enable" = "Включить быстрый запуск";
+"quick_launcher.settings.shortcut" = "Сочетание клавиш";
+"quick_launcher.settings.hint" = "Нажмите сочетание из любого приложения, чтобы открыть панель поиска и запустить скрипт. Кликните по полю сочетания, чтобы записать заново.";
 
 "log.title" = "Журнал выполнения";
 "log.count_suffix" = "записей";
 "log.select.title" = "Выберите запись";
 "log.select.description" = "Выберите запись в боковой панели для просмотра подробностей";
+"log.empty.title" = "Записей пока нет";
+"log.empty.description" = "Запустите задачу, чтобы создать записи в журнале.";
 "log.filter.all" = "Все";
 "log.detail.title" = "Подробности выполнения";
 "log.detail.trigger" = "Способ запуска";
 "log.detail.trigger.manual" = "Вручную";
 "log.detail.trigger.schedule" = "По расписанию";
+"log.detail.trigger.launch" = "При запуске";
 "log.detail.exit_code" = "Код завершения";
 "log.detail.duration" = "Длительность";
 "log.detail.duration_ms" = "%d мс";
@@ -213,6 +287,7 @@
 "settings.general.language.restart_hint" = "Смена языка вступает в силу немедленно для большинства элементов интерфейса.";
 "settings.general.startup" = "Запуск";
 "settings.general.launch_at_login" = "Запускать при входе в систему";
+"settings.general.show_menubar_icon" = "Показывать значок в строке меню";
 "settings.general.defaults" = "Значения по умолчанию";
 "settings.general.default_shell" = "Shell по умолчанию";
 "settings.general.default_timeout" = "Тайм-аут по умолчанию";
@@ -250,12 +325,29 @@
 "settings.backup.restore_success.message" = "База данных восстановлена. Приложение сейчас перезапустится.";
 "settings.backup.restore_failed" = "Ошибка восстановления";
 "settings.backup.restore_failed.message" = "Не удалось восстановить из этой резервной копии. Файл резервной копии может быть повреждён.";
+"settings.backup.delete_confirm.title" = "Удалить резервную копию?";
+"settings.backup.delete_confirm.message" = "Эта резервная копия будет удалена навсегда. Это действие нельзя отменить.";
+"settings.backup.success" = "Резервная копия создана";
+"settings.backup.success.message" = "База данных успешно сохранена в резервную копию.";
+"settings.backup.success.no_change.message" = "С момента последнего копирования изменений не было — последний снимок по-прежнему актуален, новый файл не создавался.";
+"settings.backup.last_backup" = "Последняя копия";
+"settings.backup.next_backup" = "Следующая копия";
+"settings.backup.tasks_count" = "Задач: %d";
+"settings.backup.format.legacy" = "Устаревший формат";
+"settings.backup.skipped.title" = "Резервное копирование пропущено";
+"settings.backup.restoring" = "Восстановление...";
 
 "settings.logs" = "Журнал";
 "settings.logs.section" = "Управление журналом";
 "settings.logs.retention" = "Срок хранения";
 "settings.logs.retention.days" = "дней";
 "settings.logs.cleanup" = "Очистить старые записи";
+"settings.logs.cleanup.confirm.title" = "Очистить старые записи?";
+"settings.logs.cleanup.confirm.message" = "Все записи о выполнении старше %d дней будут удалены навсегда. Это действие нельзя отменить.";
+"settings.logs.cleanup.cancel" = "Отмена";
+"settings.logs.cleanup.confirm" = "Очистить";
+"settings.logs.cleanup.result.title" = "Очистка завершена";
+"settings.logs.cleanup.result.message" = "Удалено старых записей: %d.";
 
 "settings.updates" = "Обновления";
 "settings.updates.section" = "Автоматические обновления";
@@ -340,6 +432,21 @@
 "update.download_error" = "Ошибка загрузки";
 "update.dmg_error" = "Ошибка обновления";
 "update.dmg_error.message" = "Загруженный образ диска повреждён. Попробуйте загрузить обновление ещё раз.";
+"update.save_failed.title" = "Не удалось сохранить данные";
+"update.save_failed.message" = "Не удалось сохранить недавние изменения перед обновлением: %@\n\nЕсли продолжить, обновление установится, но часть данных может остаться несохранённой.";
+"update.save_failed.continue" = "Продолжить обновление";
+"update.save_failed.cancel" = "Отмена";
+
+"error.save_failed.title" = "Не удалось сохранить";
+"error.save_failed.message" = "При сохранении изменений произошла ошибка:\n%@";
+"error.export_failed.title" = "Ошибка экспорта";
+"error.export_failed.message" = "Не удалось записать файл экспорта:\n%@";
+"error.import_failed.title" = "Ошибка импорта";
+"error.import_read_failed" = "Не удалось прочитать выбранный файл:\n%@";
+"error.import_decode_failed" = "Файл не похож на корректный экспорт TaskTick:\n%@";
+"error.import_save_failed" = "Импортированные задачи не удалось сохранить:\n%@";
+"error.delete_failed.title" = "Не удалось удалить";
+"error.delete_failed.message" = "Элемент удалён из интерфейса, но изменения не удалось сохранить. После перезапуска он может появиться снова.\n\n%@";
 
 /* Script Templates */
 "template.menu" = "Шаблоны";
@@ -427,6 +534,21 @@
 "recovery.message" = "Не удалось открыть базу данных. Файл данных сохранён. Вы можете восстановить резервную копию в Настройках или найти файл базы данных вручную.";
 "recovery.open_settings" = "Открыть Настройки";
 "recovery.open_folder" = "Показать файл БД";
+
+/* Settings → Command Line */
+"settings.cli.section.title" = "Командная строка";
+"settings.cli.description" = "Включите команду `tasktick` в терминале, чтобы управлять TaskTick из скриптов и Raycast.";
+"settings.cli.enable_button" = "Включить CLI…";
+"settings.cli.installed" = "Связано с %@";
+"settings.cli.not_installed" = "Не установлено";
+"settings.cli.install.alert.title" = "Включить tasktick CLI";
+"settings.cli.install.alert.message" = "Выполните эту команду в терминале, чтобы включить CLI `tasktick`:\n\n%@";
+"settings.cli.install.alert.copy" = "Скопировать команду";
+"settings.cli.install.alert.open_terminal" = "Открыть Терминал";
+"settings.cli.install.alert.cancel" = "Отмена";
+"settings.cli.uninstall_button" = "Удалить CLI…";
+"settings.cli.uninstall.alert.title" = "Удалить tasktick CLI";
+"settings.cli.uninstall.alert.message" = "Выполните эту команду в терминале, чтобы удалить символическую ссылку `tasktick`:\n\n%@";
 
 /* Action Toast (Run/Stop/Restart banners) */
 "toast.action.started" = "Запущено";

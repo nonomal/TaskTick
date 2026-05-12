@@ -6,6 +6,7 @@
 "menubar.no_tasks" = "タスクなし";
 "menubar.next_run" = "次回実行";
 "menubar.upcoming" = "予定タスク";
+"menubar.manual_scripts" = "手動スクリプト";
 "menubar.quit" = "終了";
 
 /* Task List */
@@ -29,6 +30,7 @@
 "task.detail.enable" = "有効にする";
 "task.detail.disable" = "無効にする";
 "task.detail.run" = "実行";
+"task.detail.stop" = "停止";
 "task.detail.edit" = "編集";
 "task.detail.delete" = "削除";
 "task.detail.schedule" = "スケジュール";
@@ -52,7 +54,6 @@
 "editor.tab.basic" = "基本";
 "editor.tab.schedule" = "スケジュール";
 "editor.tab.script" = "スクリプト";
-"editor.tab.content" = "内容";
 "editor.tab.settings" = "設定";
 "editor.tab.notification" = "通知";
 
@@ -89,7 +90,10 @@
 "editor.working_dir.choose" = "ディレクトリを選択";
 "editor.timeout" = "タイムアウト";
 "editor.timeout.seconds" = "秒";
+"editor.timeout.unlimited" = "タイムアウトなし";
+"editor.timeout.hint" = "-1（または任意の負の値）を入力するとタイムアウトしません。スクリプトは自然終了するか手動で停止するまで実行され続けます。dev サーバーなどの長時間実行プロセスに便利です。";
 "editor.ignore_exit_code" = "終了コードを無視";
+"editor.ignore_exit_code.hint" = "有効にすると、スクリプトの exit code に関わらずタスクは成功として扱われます。正常終了でも非ゼロの exit code を返すスクリプトに便利です。";
 "editor.pre_run.section" = "事前実行コマンド";
 "editor.pre_run.enable" = "事前実行コマンドを有効にする";
 "editor.pre_run.placeholder" = "任意: スクリプトの前に実行するコマンド";
@@ -97,6 +101,8 @@
 "editor.section.notification" = "通知";
 "editor.notify_success" = "成功時に通知";
 "editor.notify_failure" = "失敗時に通知";
+"editor.notify_only_when_output" = "出力がある場合のみ通知";
+"editor.notify_only_when_output.hint" = "有効にすると、実行が成功しても stdout に出力がない場合は通知されません。`echo` で実際に通知する価値のある内容が出力されたときのみ通知されます。";
 "editor.notify_hint" = "タスク完了時にmacOSのシステム通知で通知されます。";
 "editor.strong_reminder" = "成功時に強調リマインダー";
 "editor.strong_reminder_hint" = "タスク成功時に出力全文を表示するフローティングパネルを表示します。";
@@ -123,6 +129,14 @@
 "schedule.until" = "%@まで";
 "schedule.after_n_times" = "%d回";
 "schedule.run_missed" = "未実行分を実行";
+"schedule.launch_section" = "起動時";
+"schedule.run_on_launch" = "App 起動のたびに 1 回実行";
+"schedule.run_on_launch.help" = "スケジュール設定の有無に関わらず実行されます";
+"schedule.trigger_section" = "トリガー";
+"schedule.manual_only" = "手動トリガーのみ";
+"schedule.manual_only.help" = "スケジューラには登録されず、右クリックまたはメニューバーからのみ実行されます";
+"tasklist.section.scheduled" = "スケジュール";
+"tasklist.section.manual" = "手動";
 
 /* Repeat Types */
 "repeat.never" = "なし";
@@ -183,16 +197,76 @@
 "notification.success" = "正常に完了しました";
 "notification.succeeded" = "成功";
 "notification.failed" = "失敗";
+"notification.denied.title" = "通知が無効です";
+"notification.denied.message" = "TaskTick はタスクの実行結果を通知したいのですが、システム設定で通知がオフになっています。タスクの通知を受け取るには再度有効にしてください。";
+"notification.denied.open_settings" = "システム設定を開く";
+"notification.denied.later" = "後で";
+
+/* Quick Launcher */
+"quick_launcher.placeholder" = "タスクを検索...";
+"quick_launcher.empty.no_tasks" = "実行可能なタスクがありません";
+"quick_launcher.empty.no_match" = "一致するタスクがありません";
+"quick_launcher.hint.navigate" = "選択";
+"quick_launcher.hint.run" = "実行";
+"quick_launcher.hint.close" = "閉じる";
+"quick_launcher.recording" = "ショートカットキーを押してください…";
+"quick_launcher.menu_item" = "クイックランチャー";
+"quick_launcher.action.run" = "実行";
+"quick_launcher.action.stop" = "停止";
+"quick_launcher.hint.stop" = "停止";
+"quick_launcher.hint.restart" = "再起動";
+"quick_launcher.hint.reveal" = "メインウィンドウで開く";
+"quick_launcher.hint.settings" = "設定";
+"quick_launcher.settings.results" = "検索結果";
+"quick_launcher.settings.show_tasks" = "タスクを表示";
+"quick_launcher.filter.all" = "すべて";
+"quick_launcher.filter.scheduled_only" = "スケジュールのみ";
+"quick_launcher.filter.manual_only" = "手動のみ";
+"quick_launcher.subtitle.running" = "実行中";
+"quick_launcher.meta.running" = "実行中…";
+
+/* Toast messages */
+"toast.task.started" = "「%@」を開始しました";
+"toast.task.stopped" = "「%@」を停止しました";
+"toast.task.restarted" = "「%@」を再起動しました";
+"toast.log.cleared" = "古いログをクリーンアップしました";
+
+/* Quit confirmation */
+"quit.confirm.title" = "TaskTick を終了しますか？";
+"quit.confirm.message" = "%d 件のスクリプトがまだ実行中です。終了するとただちに停止されます:";
+"quit.confirm.cancel" = "キャンセル";
+"quit.confirm.quit" = "終了して停止";
+
+/* Live log file (manual tasks) */
+"settings.logs.streaming" = "リアルタイムログファイル";
+"settings.logs.stream_to_file" = "手動タスクの出力をファイルに書き込む";
+"settings.logs.stream_to_file.hint" = "各手動タスクの最新の実行結果が ~/Library/Logs/TaskTick/<タスク名>.log に書き出されるため、ターミナルから tail -f したり Console.app で開いたりできます。実行のたびに前回の内容は上書きされます。";
+"settings.logs.reveal_directory" = "Finder で表示";
+"task.detail.live_log_file" = "リアルタイムログファイル";
+"task.detail.live_log.reveal" = "Finder で表示";
+"task.detail.live_log.console" = "コンソールで開く";
+"task.detail.live_log.copy_path" = "パスをコピー";
+"task.detail.live_log.copied" = "パスをコピーしました";
+"task.detail.live_log.empty_hint" = "このタスクが初めて実行されたときにファイルが作成されます。";
+"task.detail.elapsed" = "実行時間";
+"quick_launcher.meta.running_for" = "実行時間 %@";
+"quick_launcher.settings.section" = "クイックランチャー";
+"quick_launcher.settings.enable" = "クイックランチャーを有効にする";
+"quick_launcher.settings.shortcut" = "ショートカット";
+"quick_launcher.settings.hint" = "どのアプリからでもショートカットキーを押すと検索パネルが開き、スクリプトを実行できます。ショートカットフィールドをクリックすると再録音できます。";
 
 "log.title" = "実行ログ";
 "log.count_suffix" = "件";
 "log.select.title" = "ログを選択";
 "log.select.description" = "サイドバーからログを選択して詳細を表示してください";
+"log.empty.title" = "ログがありません";
+"log.empty.description" = "タスクを実行すると実行ログが生成されます。";
 "log.filter.all" = "すべて";
 "log.detail.title" = "実行詳細";
 "log.detail.trigger" = "トリガー";
 "log.detail.trigger.manual" = "手動";
 "log.detail.trigger.schedule" = "スケジュール";
+"log.detail.trigger.launch" = "起動時";
 "log.detail.exit_code" = "終了コード";
 "log.detail.duration" = "所要時間";
 "log.detail.duration_ms" = "%dミリ秒";
@@ -213,6 +287,7 @@
 "settings.general.language.restart_hint" = "言語の変更はほとんどのUI要素にすぐ反映されます。";
 "settings.general.startup" = "起動";
 "settings.general.launch_at_login" = "ログイン時に起動";
+"settings.general.show_menubar_icon" = "メニューバーアイコンを表示";
 "settings.general.defaults" = "デフォルト";
 "settings.general.default_shell" = "デフォルトシェル";
 "settings.general.default_timeout" = "デフォルトタイムアウト";
@@ -250,12 +325,29 @@
 "settings.backup.restore_success.message" = "データベースが復元されました。アプリを再起動します。";
 "settings.backup.restore_failed" = "復元失敗";
 "settings.backup.restore_failed.message" = "このバックアップからの復元に失敗しました。バックアップファイルが破損している可能性があります。";
+"settings.backup.delete_confirm.title" = "バックアップを削除しますか？";
+"settings.backup.delete_confirm.message" = "このバックアップは完全に削除されます。この操作は取り消せません。";
+"settings.backup.success" = "バックアップ成功";
+"settings.backup.success.message" = "データベースのバックアップが完了しました。";
+"settings.backup.success.no_change.message" = "前回のバックアップから変更がありません。直近のスナップショットはそのまま有効で、新しいファイルは作成されませんでした。";
+"settings.backup.last_backup" = "前回のバックアップ";
+"settings.backup.next_backup" = "次回のバックアップ";
+"settings.backup.tasks_count" = "%d 件のタスク";
+"settings.backup.format.legacy" = "旧形式";
+"settings.backup.skipped.title" = "バックアップをスキップしました";
+"settings.backup.restoring" = "復元中...";
 
 "settings.logs" = "ログ";
 "settings.logs.section" = "ログ管理";
 "settings.logs.retention" = "保持期間";
 "settings.logs.retention.days" = "日";
 "settings.logs.cleanup" = "古いログを削除";
+"settings.logs.cleanup.confirm.title" = "古いログを削除しますか？";
+"settings.logs.cleanup.confirm.message" = "%d 日より前の実行ログはすべて完全に削除されます。この操作は取り消せません。";
+"settings.logs.cleanup.cancel" = "キャンセル";
+"settings.logs.cleanup.confirm" = "削除";
+"settings.logs.cleanup.result.title" = "クリーンアップ完了";
+"settings.logs.cleanup.result.message" = "%d 件の古い実行ログを削除しました。";
 
 "settings.updates" = "アップデート";
 "settings.updates.section" = "自動アップデート";
@@ -340,6 +432,21 @@
 "update.download_error" = "ダウンロードに失敗しました";
 "update.dmg_error" = "アップデートに失敗しました";
 "update.dmg_error.message" = "ダウンロードしたディスクイメージが破損しています。もう一度アップデートをダウンロードしてください。";
+"update.save_failed.title" = "データを保存できませんでした";
+"update.save_failed.message" = "アップデート前に最近の変更を保存できませんでした: %@\n\nこのまま続行すると、保存されていないデータがある状態でアップデートがインストールされる可能性があります。";
+"update.save_failed.continue" = "アップデートを続行";
+"update.save_failed.cancel" = "キャンセル";
+
+"error.save_failed.title" = "保存できませんでした";
+"error.save_failed.message" = "変更の保存中にエラーが発生しました:\n%@";
+"error.export_failed.title" = "エクスポートに失敗しました";
+"error.export_failed.message" = "エクスポートファイルを書き込めませんでした:\n%@";
+"error.import_failed.title" = "インポートに失敗しました";
+"error.import_read_failed" = "選択したファイルを読み込めませんでした:\n%@";
+"error.import_decode_failed" = "ファイルが有効な TaskTick エクスポートではないようです:\n%@";
+"error.import_save_failed" = "インポートしたタスクを保存できませんでした:\n%@";
+"error.delete_failed.title" = "削除できませんでした";
+"error.delete_failed.message" = "項目は表示から削除されましたが、変更を保存できませんでした。再起動後に再表示される可能性があります。\n\n%@";
 
 /* Script Templates */
 "template.menu" = "テンプレート";
@@ -427,6 +534,21 @@
 "recovery.message" = "データベースを開けませんでした。データファイルは保持されています。設定からバックアップを復元するか、データベースファイルを手動で確認できます。";
 "recovery.open_settings" = "設定を開く";
 "recovery.open_folder" = "データベースファイルを表示";
+
+/* Settings → Command Line */
+"settings.cli.section.title" = "コマンドライン";
+"settings.cli.description" = "ターミナルで `tasktick` コマンドを有効にして、スクリプトや Raycast から TaskTick を操作できます。";
+"settings.cli.enable_button" = "CLI を有効化…";
+"settings.cli.installed" = "%@ にリンク済み";
+"settings.cli.not_installed" = "未インストール";
+"settings.cli.install.alert.title" = "tasktick CLI を有効化";
+"settings.cli.install.alert.message" = "ターミナルで次のコマンドを実行して `tasktick` CLI を有効にしてください:\n\n%@";
+"settings.cli.install.alert.copy" = "コマンドをコピー";
+"settings.cli.install.alert.open_terminal" = "ターミナルを開く";
+"settings.cli.install.alert.cancel" = "キャンセル";
+"settings.cli.uninstall_button" = "CLI をアンインストール…";
+"settings.cli.uninstall.alert.title" = "tasktick CLI をアンインストール";
+"settings.cli.uninstall.alert.message" = "ターミナルで次のコマンドを実行して `tasktick` CLI のシンボリックリンクを削除してください:\n\n%@";
 
 /* Action Toast (Run/Stop/Restart banners) */
 "toast.action.started" = "開始しました";
