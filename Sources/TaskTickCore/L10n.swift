@@ -8,16 +8,46 @@ public enum L10n {
     /// Safe resource bundle lookup — searches multiple locations, never crashes.
     private static let _resourceBundle: Bundle = {
         let bundleName = "TaskTick_TaskTickCore.bundle"
-        let candidates: [URL] = [
+        var candidates: [URL] = [
             // 1. App root (alongside Contents/) — standard SPM placement
             Bundle.main.bundleURL.appendingPathComponent(bundleName),
             // 2. Inside Contents/Resources/
             Bundle.main.bundleURL.appendingPathComponent("Contents/Resources/\(bundleName)"),
-            // 3. Same directory as the executable
-            Bundle.main.executableURL?.deletingLastPathComponent().appendingPathComponent(bundleName),
-            // 4. Two levels up from executable (Contents/MacOS/../../)
-            Bundle.main.executableURL?.deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().appendingPathComponent(bundleName),
+        ]
+
+        // 3+4: probe relative to BOTH the raw and the symlink-resolved
+        // executable path. When the CLI is invoked via a PATH symlink
+        // (e.g. /opt/homebrew/bin/tasktick → .app/Contents/cli/tasktick,
+        // which is how the Homebrew cask installs it), Bundle.main points
+        // at the symlink's directory, not the real binary inside the .app —
+        // so the raw candidates miss the bundle that ships at the .app root.
+        // resolvingSymlinksInPath() climbs back into the .app. (Same lesson
+        // as BundleContext.bundleIDFromEnclosingApp.)
+        let execURLs = [
+            Bundle.main.executableURL,
+            Bundle.main.executableURL?.resolvingSymlinksInPath(),
         ].compactMap { $0 }
+        for exec in execURLs {
+            let execDir = exec.deletingLastPathComponent()
+            // Same directory as the executable
+            candidates.append(execDir.appendingPathComponent(bundleName))
+            // Two levels up (Contents/{MacOS,cli}/<bin> → .app root)
+            candidates.append(execDir.deletingLastPathComponent().deletingLastPathComponent().appendingPathComponent(bundleName))
+        }
+
+        // 5. Nearest .app ancestor of the resolved executable — robust to the
+        // CLI living at Contents/cli/ or Contents/MacOS/ at any depth.
+        if let resolvedExec = Bundle.main.executableURL?.resolvingSymlinksInPath() {
+            var current = resolvedExec
+            for _ in 0..<current.pathComponents.count {
+                current.deleteLastPathComponent()
+                if current.pathExtension == "app" {
+                    candidates.append(current.appendingPathComponent(bundleName))
+                    candidates.append(current.appendingPathComponent("Contents/Resources/\(bundleName)"))
+                    break
+                }
+            }
+        }
 
         for url in candidates {
             if let bundle = Bundle(url: url) {
