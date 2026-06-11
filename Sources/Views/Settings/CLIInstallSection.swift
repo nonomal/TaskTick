@@ -34,10 +34,6 @@ struct CLIInstallSection: View {
 
                     statusLabel
                 }
-
-                Link(L10n.tr("settings.cli.raycast_link"),
-                     destination: URL(string: "https://www.raycast.com/lifedever/tasktick")!)
-                    .font(.callout)
             }
             .padding(.vertical, 4)
         } header: {

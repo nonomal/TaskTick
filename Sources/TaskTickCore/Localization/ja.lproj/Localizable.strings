@@ -555,7 +555,9 @@
 /* Settings → Command Line */
 "settings.cli.section.title" = "コマンドライン";
 "settings.cli.description" = "ターミナルで `tasktick` コマンドを有効にして、スクリプトや Raycast から TaskTick を操作できます。";
-"settings.cli.raycast_link" = "Raycast用TaskTick拡張機能を入手";
+"settings.raycast.section.title" = "Raycast拡張機能";
+"settings.raycast.description" = "Raycastからタスクを直接検索・実行・停止・再起動できます。上記の `tasktick` CLIを有効にする必要があります。";
+"settings.raycast.link" = "Raycast用TaskTick拡張機能を入手";
 "settings.cli.enable_button" = "CLI を有効化…";
 "settings.cli.installed" = "%@ にリンク済み";
 "settings.cli.not_installed" = "未インストール";

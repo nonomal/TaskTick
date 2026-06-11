@@ -555,7 +555,9 @@
 /* Settings → Command Line */
 "settings.cli.section.title" = "Riga di comando";
 "settings.cli.description" = "Abilita il comando `tasktick` nel terminale per controllare TaskTick da script e Raycast.";
-"settings.cli.raycast_link" = "Ottieni l'estensione TaskTick per Raycast";
+"settings.raycast.section.title" = "Estensione Raycast";
+"settings.raycast.description" = "Cerca, avvia, ferma e riavvia i tuoi task direttamente da Raycast. Richiede la CLI `tasktick` qui sopra.";
+"settings.raycast.link" = "Ottieni l'estensione TaskTick per Raycast";
 "settings.cli.enable_button" = "Abilita CLI…";
 "settings.cli.installed" = "Collegato a %@";
 "settings.cli.not_installed" = "Non installato";

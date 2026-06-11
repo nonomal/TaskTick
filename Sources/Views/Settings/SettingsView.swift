@@ -170,6 +170,7 @@ struct SettingsView: View {
     private var cliTab: some View {
         Form {
             CLIInstallSection()
+            RaycastExtensionSection()
         }
         .formStyle(.grouped)
     }

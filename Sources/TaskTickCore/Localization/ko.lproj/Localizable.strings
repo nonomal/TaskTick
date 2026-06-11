@@ -555,7 +555,9 @@
 /* Settings → Command Line */
 "settings.cli.section.title" = "명령줄";
 "settings.cli.description" = "터미널에서 `tasktick` 명령을 사용하여 스크립트와 Raycast에서 TaskTick을 제어할 수 있도록 활성화합니다.";
-"settings.cli.raycast_link" = "Raycast용 TaskTick 확장 받기";
+"settings.raycast.section.title" = "Raycast 확장";
+"settings.raycast.description" = "Raycast에서 바로 작업을 검색, 실행, 중지, 재시작할 수 있습니다. 위의 `tasktick` CLI를 먼저 활성화해야 합니다.";
+"settings.raycast.link" = "Raycast용 TaskTick 확장 받기";
 "settings.cli.enable_button" = "CLI 활성화…";
 "settings.cli.installed" = "%@에 연결됨";
 "settings.cli.not_installed" = "설치되지 않음";
